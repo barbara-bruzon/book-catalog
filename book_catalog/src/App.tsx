@@ -24,11 +24,9 @@ const App = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [totalBooks, setTotalBooks] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectedPage, setSelectedPage] = useState(1); // Adicionando estado para controlar o botão de página selecionado
-
+    const [selectedPage, setSelectedPage] = useState(1);
     useEffect(() => {
         fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     const fetchData = async () => {
