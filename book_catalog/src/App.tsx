@@ -79,7 +79,7 @@ const App = () => {
                     onClick={() => handlePage(i)}
                     label={i.toString()}
                     disabled={i === currentPage}
-                    className={i === selectedPage ? "selected" : ""} // Aplicando a classe selected ao botão de página atual
+                    className={i === selectedPage ? "selected" : ""}
                 />
             );
         }
@@ -92,7 +92,7 @@ const App = () => {
             <h1>Book Catalog</h1>
             <div className="App-table">
                 <table>
-                    <thead> {/* Adicionando a tag thead para o cabeçalho da tabela */}
+                    <thead>
                         <tr>
                             <th>Title</th>
                             <th>Author</th>
