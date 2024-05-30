@@ -7,8 +7,8 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3001;
-const uri = 'mongodb://localhost:27017';
-const dbName = 'livros';
+const conn_uri = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+const db_name = 'books';
 
 app.use(
     cors({
@@ -17,48 +17,42 @@ app.use(
 );
 app.use(express.json());
 
-async function connection() {
-    const client = new MongoClient(uri);
-    try {
-        await client.connect();
-        console.log("Conexão realizada!");
-        const db = client.db(dbName);
-        return db;
-    } catch (error) {
-        console.error("Erro na conexão:", error);
-        throw error;
-    }
+async function getCollection(collectionName) {
+    const client = new MongoClient(conn_uri);
+    await client.connect();
+    const database = client.db(db_name);
+    return { collection: database.collection(collectionName), client };
 }
 
-// Routes
-app.get("/livros/:page", async (req, res) => {
+// Beggin - routes
+app.get("/books/:page", async (req, res) => {
     const page = parseInt(req.params.page);
     const skip = (page - 1) * 10;
     try {
-        const db = await connection();
-        const collection = db.collection('livro');
+        const { collection, client } = await getCollection('book');
         const books = await collection.find({}).skip(skip).limit(10).toArray();
+        await client.close();
         res.json(books);
     } catch (error) {
-        console.error("Ocorreu um erro ao buscar os dados dos livros:", error);
-        res.status(500).json({ error: "Erro ao buscar livros" });
+        console.error("An error occurred when searching for the book data: ", error);
+        res.status(500).json({ message: `An error occurred when searching for book data: ${error}` });
     }
 });
 
 app.get("/len", async (req, res) => {
     try {
-        const db = await connection();
-        const collection = db.collection('livro');
+        const { collection, client } = await getCollection('book');
         const amount = await collection.countDocuments();
+        await client.close();
         res.json({ amount });
     } catch (error) {
-        console.error("Ocorreu um erro ao contar os documentos:", error);
-        res.status(500).json({
-            error: "Ocorreu um erro ao contar os documentos",
-        });
+        console.error("An error occurred while counting the books: ", error);
+        res.status(500).json({ message: `An error occurred while counting the books: ${error}` });
     }
 });
 
+// End - routes
+
 app.listen(port, () => {
-    console.log(`Servidor rodando na porta ${port}`);
+    console.log(`Server running on port ${port}`);
 });
