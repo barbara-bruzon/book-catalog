@@ -1,0 +1,90 @@
+:root {
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #111111; 
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    color: white;
+}
+
+.App-pagination {
+    margin-top: 20px;
+    margin-bottom: 20px; 
+    color: white;
+}
+
+.App {
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.App-table {
+    background-color: #e4dddd;
+    font-size: 20px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    border-bottom: 1px solid #000000;   
+}
+
+th {
+    background-color: #555555;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: white;
+}
+
+button {
+    border-radius: 8px;
+    padding: 0.6em 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: inherit;
+    background-color: grey; 
+    color: black;
+    transition: background-color 0.25s, border-color 0.25s, color 0.25s;
+    border: 1px solid black;
+    margin: 0 5px;
+}
+
+button:hover {
+    background-color: #333333;
+    color: white;
+}
+
+button:active {
+    background-color: black;
+    color: white;
+}
+
+button.selected {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+
+.App-pagination > div {
+    margin-bottom: 10px; 
+}
