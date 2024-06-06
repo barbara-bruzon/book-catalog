@@ -63,15 +63,28 @@ const App = () => {
 
     const handlePage = (value: number) => {
         setCurrentPage(value);
-        setSelectedPage(value); // Definindo o botão de página selecionado
+        setSelectedPage(value);
     };
 
     const renderPageNumbers = () => {
-        const totalPagesToShow = Math.min(totalPages, 7);
         const pageNumbers = [];
-        const startPage = Math.max(1, currentPage - Math.floor(totalPagesToShow / 2));
-        const endPage = Math.min(totalPages, startPage + totalPagesToShow - 1);
-
+        let startPage;
+        let endPage;
+    
+        if (currentPage === 1) {
+            startPage = 1;
+            endPage = Math.min(totalPages, startPage + 3);
+        } else if (currentPage === 2) {
+            startPage = 1;
+            endPage = Math.min(totalPages, startPage + 4);
+        } else if (currentPage === 3) {
+            startPage = 1;
+            endPage = Math.min(totalPages, startPage + 5);
+        } else {
+            startPage = Math.max(1, currentPage - 3);
+            endPage = Math.min(totalPages, startPage + 6);
+        }
+    
         for (let i = startPage; i <= endPage; i++) {
             pageNumbers.push(
                 <PaginationButton
@@ -79,14 +92,14 @@ const App = () => {
                     onClick={() => handlePage(i)}
                     label={i.toString()}
                     disabled={i === currentPage}
-                    className={i === selectedPage ? "selected" : ""}
+                    className={i === currentPage ? "selected" : ""}
                 />
             );
         }
-
+    
         return pageNumbers;
     };
-
+    
     return (
         <div className="App">
             <h1>Book Catalog</h1>
@@ -124,27 +137,35 @@ const App = () => {
                         {totalBooks} books
                     </div>
                 )}
-                <PaginationButton
-                    onClick={() => setCurrentPage(1)}
-                    label="<<"
-                    disabled={currentPage <= 1}
-                />
-                <PaginationButton
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    label="<"
-                    disabled={currentPage <= 1}
-                />
+                {currentPage > 1 && (
+                    <>
+                        <PaginationButton
+                            onClick={() => setCurrentPage(1)}
+                            label="<<"
+                            disabled={currentPage <= 1}
+                        />
+                        <PaginationButton
+                            onClick={() => setCurrentPage(currentPage - 1)}
+                            label="<"
+                            disabled={currentPage <= 1}
+                        />
+                    </>
+                )}
                 {renderPageNumbers()}
-                <PaginationButton
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    label=">"
-                    disabled={currentPage >= totalPages}
-                />
-                <PaginationButton
-                    onClick={() => setCurrentPage(totalPages)}
-                    label=">>"
-                    disabled={currentPage >= totalPages}
-                />
+                {currentPage < totalPages && (
+                    <>
+                        <PaginationButton
+                            onClick={() => setCurrentPage(currentPage + 1)}
+                            label=">"
+                            disabled={currentPage >= totalPages}
+                        />
+                        <PaginationButton
+                            onClick={() => setCurrentPage(totalPages)}
+                            label=">>"
+                            disabled={currentPage >= totalPages}
+                        />
+                    </>
+                )}
             </div>
         </div>
     );
