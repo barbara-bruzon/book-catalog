@@ -14,17 +14,21 @@ h1 {
     color: white;
 }
 
+.App {
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    overflow: hidden;
+}
+
 .App-pagination {
     margin-top: 20px;
     margin-bottom: 20px; 
     color: white;
 }
 
-.App {
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    overflow: hidden;
+.App-pagination > div {
+    margin-bottom: 10px; 
 }
 
 .App-table {
@@ -85,6 +89,13 @@ button.selected {
     border: 1px solid white;
 }
 
-.App-pagination > div {
-    margin-bottom: 10px; 
+button.disabled {
+    background-color: #777777;
+    color: #444444;
+    cursor: not-allowed;
+}
+
+button.disabled:hover {
+    background-color: #777777;
+    color: #444444;
 }

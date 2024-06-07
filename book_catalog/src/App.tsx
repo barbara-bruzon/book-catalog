@@ -3,18 +3,18 @@ import "./App.css";
 
 interface Book {
     _id: string;
-    title: string;
-    author: string;
+    titulo: string;
+    autor: string;
     isbn: string;
-    pages: number;
-    year: number;
-    price: number;
+    paginas: number;
+    ano: number;
+    valor: number;
 }
 
 const PAGE_SIZE = 10;
 
 const PaginationButton = ({ onClick, label, disabled, className }: { onClick: () => void; label: string; disabled: boolean; className?: string }) => (
-    <button className={`test ${className}`} disabled={disabled} onClick={onClick}>
+    <button className={`test ${className}`} disabled={disabled} onClick={onClick} style={{ cursor: disabled ? "not-allowed" : "pointer", backgroundColor: disabled ? "#777777" : "grey" }}>
         {label}
     </button>
 );
@@ -118,54 +118,47 @@ const App = () => {
                     <tbody>
                         {books.map((book: Book) => (
                             <tr key={book._id}>
-                                <td>{book.title}</td>
-                                <td>{book.author}</td>
+                                <td>{book.titulo}</td>
+                                <td>{book.autor}</td>
                                 <td>{book.isbn}</td>
-                                <td>{book.pages}</td>
-                                <td>{book.year}</td>
-                                <td>R${book.price}</td>
+                                <td>{book.paginas}</td>
+                                <td>{book.ano}</td>
+                                <td>R${book.valor}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
             <div className="App-pagination">
-                {totalPages > 0 && (
-                    <div>
-                        Showing from {(currentPage - 1) * PAGE_SIZE + 1} to{" "}
-                        {currentPage * PAGE_SIZE > totalBooks ? totalBooks : currentPage * PAGE_SIZE} of{" "}
-                        {totalBooks} books
-                    </div>
-                )}
-                {currentPage > 1 && (
-                    <>
-                        <PaginationButton
-                            onClick={() => setCurrentPage(1)}
-                            label="<<"
-                            disabled={currentPage <= 1}
-                        />
-                        <PaginationButton
-                            onClick={() => setCurrentPage(currentPage - 1)}
-                            label="<"
-                            disabled={currentPage <= 1}
-                        />
-                    </>
-                )}
+                <>
+                    <PaginationButton
+                        onClick={() => setCurrentPage(1)}
+                        label="<<"
+                        disabled={currentPage <= 1}
+                        className={currentPage <= 1 ? "disabled" : ""}
+                    />
+                    <PaginationButton
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        label="<"
+                        disabled={currentPage <= 1}
+                        className={currentPage <= 1 ? "disabled" : ""}
+                    />
+                </>
                 {renderPageNumbers()}
-                {currentPage < totalPages && (
-                    <>
-                        <PaginationButton
-                            onClick={() => setCurrentPage(currentPage + 1)}
-                            label=">"
-                            disabled={currentPage >= totalPages}
-                        />
-                        <PaginationButton
-                            onClick={() => setCurrentPage(totalPages)}
-                            label=">>"
-                            disabled={currentPage >= totalPages}
-                        />
-                    </>
-                )}
+                <>
+                    <PaginationButton
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        label=">"
+                        disabled={currentPage >= totalPages}
+                        className={currentPage >= totalPages ? "disabled" : ""}
+                    />
+                    <PaginationButton
+                        onClick={() => setCurrentPage(totalPages)}
+                        label=">>"
+                        disabled={currentPage >= totalPages}
+                        className={currentPage >= totalPages ? "disabled" : ""}
+                    />
+                </>
             </div>
         </div>
     );
