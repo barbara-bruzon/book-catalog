@@ -24,7 +24,7 @@ const App = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [totalBooks, setTotalBooks] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectedPage, setSelectedPage] = useState(1);
+    
     useEffect(() => {
         fetchData();
     }, [currentPage]);
@@ -63,7 +63,6 @@ const App = () => {
 
     const handlePage = (value: number) => {
         setCurrentPage(value);
-        setSelectedPage(value);
     };
 
     const renderPageNumbers = () => {
@@ -128,6 +127,9 @@ const App = () => {
                         ))}
                     </tbody>
                 </table>
+            </div>
+            <div className="App-pagination">
+                Showing from {((currentPage - 1) * PAGE_SIZE) + 1} to {Math.min(currentPage * PAGE_SIZE, totalBooks)} books
             </div>
             <div className="App-pagination">
                 <>
