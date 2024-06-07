@@ -4,7 +4,7 @@ import time
 
 # Connection parameters
 conn_uri = "mongodb://localhost:27017/"
-db_name = "books"
+db_name = "livros"
 
 try:
     start = time.time()
@@ -13,7 +13,7 @@ try:
     conn_mongo = pymongo.MongoClient(conn_uri)
     # Select the database and collection
     collection_mongo = conn_mongo[db_name]
-    collection = collection_mongo["book"]
+    collection = collection_mongo["livro"]
 
     # Open the CSV file
     with open('books.csv', 'r', newline='', encoding='utf-8') as file:
@@ -31,12 +31,12 @@ try:
                 price = round(random.uniform(40, 100), 2)
 
                 product = {
-                    "title": title,
-                    "author": author,
+                    "titulo": title,
+                    "autor": author,
                     "isbn": isbn,
-                    "pages": int(pages),
-                    "year": int(year.replace('\n', '')),
-                    "price": price
+                    "pagina": int(pages),
+                    "ano": int(year.replace('\n', '')),
+                    "valor": price
                 }
                 
                 # Insert the book in the collection
