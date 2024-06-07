@@ -35,7 +35,7 @@ git clone https://github.com/barbara-bruzon/catalogo-livros.git
 ```
 ### Set up the MongoDB database
 Step-by-step:
-1. Create a MongoDB database and a collection to save the data from `books.csv`. I chose to call them `books` and `book`, respectively.
+1. Create a MongoDB database and a collection to save the data from `books.csv`. I chose to call them `livros` and `livro`, respectively.
 2. Run the script by typing `python set_database/insert_books.py` in the terminal.
 
 ## Executing the backend
@@ -74,7 +74,7 @@ You will be able to see it running in your browser by going to `http://localhost
 ## Troubleshooting
 If you have any issues during setup or execution, make sure to check the following:
 -  MongoDB is up and running on your machine.
--  The database and collection names in the `server.js` script match the ones created - they should be `books` and `book` respectively.
+-  The database and collection names in the `server.js` script match the ones created - they should be `livros` and `livro` respectively.
 - Required dependencies are installed (`pymongo` for Python, and Node.js dependencies via `npm install`).
 - You are running the commands inside the right directories.
 - Both the project backend and frontend are running.

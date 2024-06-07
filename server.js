@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
 const conn_uri = process.env.MONGODB_URI || 'mongodb://localhost:27017';
-const db_name = 'books';
+const db_name = 'livros';
 
 app.use(
     cors({
@@ -29,7 +29,7 @@ app.get("/books/:page", async (req, res) => {
     const page = parseInt(req.params.page);
     const skip = (page - 1) * 10;
     try {
-        const { collection, client } = await getCollection('book');
+        const { collection, client } = await getCollection('livro');
         const books = await collection.find({}).skip(skip).limit(10).toArray();
         await client.close();
         res.json(books);
@@ -41,7 +41,7 @@ app.get("/books/:page", async (req, res) => {
 
 app.get("/len", async (req, res) => {
     try {
-        const { collection, client } = await getCollection('book');
+        const { collection, client } = await getCollection('livro');
         const amount = await collection.countDocuments();
         await client.close();
         res.json({ amount });
